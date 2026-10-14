@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Windows of User opcodes</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <span id="markdown-mermaid" aria-hidden="true" data-config="{&quot;darkModeTheme&quot;:&quot;vscode&quot;,&quot;lightModeTheme&quot;:&quot;vscode&quot;,&quot;maxTextSize&quot;:50000,&quot;clickDrag&quot;:&quot;alt&quot;,&quot;showControls&quot;:&quot;onHoverOrFocus&quot;,&quot;resizable&quot;:true,&quot;maxHeight&quot;:&quot;&quot;}"></span>
+				<h1 id="windows-of-user-opcodes">Windows of User opcodes</h1>
+<p>Trace <code>out/O2/trace.bin</code>: 76,622,864 events, 248 of 345 instrumented instructions executed.</p>
+<h2 id="window-1">Window 1</h2>
+<p>76,622,864 windows, 31 distinct.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">#</th>
+<th style="text-align:right">Count</th>
+<th style="text-align:right">Share</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">17,559,709</td>
+<td style="text-align:right">22.92 %</td>
+<td><code>fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">13,964,356</td>
+<td style="text-align:right">18.22 %</td>
+<td><code>call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">9,122,238</td>
+<td style="text-align:right">11.91 %</td>
+<td><code>load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">5,460,539</td>
+<td style="text-align:right">7.13 %</td>
+<td><code>fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:right">4,033,826</td>
+<td style="text-align:right">5.26 %</td>
+<td><code>fsub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:right">3,539,732</td>
+<td style="text-align:right">4.62 %</td>
+<td><code>fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:right">2,853,414</td>
+<td style="text-align:right">3.72 %</td>
+<td><code>bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:right">2,731,432</td>
+<td style="text-align:right">3.56 %</td>
+<td><code>br</code></td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:right">1,551,003</td>
+<td style="text-align:right">2.02 %</td>
+<td><code>sitofp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:right">1,550,242</td>
+<td style="text-align:right">2.02 %</td>
+<td><code>fcmp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:right">1,482,336</td>
+<td style="text-align:right">1.93 %</td>
+<td><code>insertelement</code></td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>ashr</code></td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>sub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:right">1,303,184</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>fneg</code></td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:right">1,180,431</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>icmp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:right">1,180,416</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>add</code></td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:right">1,179,650</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>ret</code></td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(simPutPixel)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(trace)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:right">864,696</td>
+<td style="text-align:right">1.13 %</td>
+<td><code>extractelement</code></td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:right">494,112</td>
+<td style="text-align:right">0.64 %</td>
+<td><code>call(llvm.fmuladd.v2f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:right">370,588</td>
+<td style="text-align:right">0.48 %</td>
+<td><code>or</code></td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:right">370,584</td>
+<td style="text-align:right">0.48 %</td>
+<td><code>fptoui</code></td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:right">370,584</td>
+<td style="text-align:right">0.48 %</td>
+<td><code>shl</code></td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:right">123,540</td>
+<td style="text-align:right">0.16 %</td>
+<td><code>select</code></td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:right">123,528</td>
+<td style="text-align:right">0.16 %</td>
+<td><code>shufflevector</code></td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:right">10</td>
+<td style="text-align:right">0.00 %</td>
+<td><code>and</code></td>
+</tr>
+<tr>
+<td style="text-align:right">28</td>
+<td style="text-align:right">4</td>
+<td style="text-align:right">0.00 %</td>
+<td><code>call(llvm.fabs.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">29</td>
+<td style="text-align:right">3</td>
+<td style="text-align:right">0.00 %</td>
+<td><code>store</code></td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:right">2</td>
+<td style="text-align:right">0.00 %</td>
+<td><code>call(cos_taylor)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="window-2">Window 2</h2>
+<p>76,622,863 windows, 116 distinct.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">#</th>
+<th style="text-align:right">Count</th>
+<th style="text-align:right">Share</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">8,504,592</td>
+<td style="text-align:right">11.10 %</td>
+<td><code>fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">6,639,410</td>
+<td style="text-align:right">8.67 %</td>
+<td><code>fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">6,145,296</td>
+<td style="text-align:right">8.02 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">3,909,528</td>
+<td style="text-align:right">5.10 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:right">3,786,001</td>
+<td style="text-align:right">4.94 %</td>
+<td><code>load load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:right">3,538,944</td>
+<td style="text-align:right">4.62 %</td>
+<td><code>load fsub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:right">2,482,824</td>
+<td style="text-align:right">3.24 %</td>
+<td><code>fdiv fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>fsub load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:right">1,427,472</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>fsub fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:right">1,426,706</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>fcmp br</code></td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>ashr sub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>bitcast ashr</code></td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>bitcast fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>call(llvm.fmuladd.f32) load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>sub bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:right">1,303,178</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>call(llvm.fmuladd.f32) fcmp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:right">1,303,176</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>fmul fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:right">1,180,424</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:right">1,180,419</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>icmp br</code></td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:right">1,180,418</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br sitofp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:right">1,180,416</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>add icmp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:right">1,180,416</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>sitofp fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:right">1,179,650</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:right">1,179,650</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fneg call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br ret</code></td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(simPutPixel) add</code></td>
+</tr>
+<tr>
+<td style="text-align:right">28</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(trace) load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">29</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv call(trace)</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="window-3">Window 3</h2>
+<p>76,622,862 windows, 176 distinct.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">#</th>
+<th style="text-align:right">Count</th>
+<th style="text-align:right">Share</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">4,965,648</td>
+<td style="text-align:right">6.48 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">4,965,648</td>
+<td style="text-align:right">6.48 %</td>
+<td><code>fmul fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">3,538,944</td>
+<td style="text-align:right">4.62 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">3,538,944</td>
+<td style="text-align:right">4.62 %</td>
+<td><code>load load fsub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:right">2,606,352</td>
+<td style="text-align:right">3.40 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>fsub load load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>load fsub load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>ashr sub bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>bitcast ashr sub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>bitcast fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>sub bitcast fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:right">1,303,176</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:right">1,180,416</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>add icmp br</code></td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:right">1,180,416</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br sitofp fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:right">1,180,416</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>sitofp fadd fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br ret call(simPutPixel)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fadd bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fcmp br</code></td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) load fneg</code></td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(simPutPixel) add icmp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(trace) load load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd bitcast ashr</code></td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fdiv fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv call(trace) load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">28</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fadd fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">29</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fdiv call(trace)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fdiv fdiv</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="window-4">Window 4</h2>
+<p>76,622,861 windows, 201 distinct.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">#</th>
+<th style="text-align:right">Count</th>
+<th style="text-align:right">Share</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">3,662,472</td>
+<td style="text-align:right">4.78 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">2,606,352</td>
+<td style="text-align:right">3.40 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">2,606,352</td>
+<td style="text-align:right">3.40 %</td>
+<td><code>fmul fmul call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>fsub load load fsub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>load fsub load load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>load load fsub load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>ashr sub bitcast fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>bitcast ashr sub bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>sub bitcast fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:right">1,303,176</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>bitcast fmul fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:right">1,180,416</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br sitofp fadd fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br ret call(simPutPixel) add</code></td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) load fneg</code></td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fadd bitcast ashr</code></td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul fmul fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) load fneg call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(simPutPixel) add icmp br</code></td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(trace) load load fsub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd bitcast ashr sub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fdiv fadd fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fmul call(llvm.fmuladd.f32) fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv call(trace) load load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fadd fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">28</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fdiv call(trace) load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">29</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fdiv fdiv call(trace)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) load</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="window-5">Window 5</h2>
+<p>76,622,860 windows, 217 distinct.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">#</th>
+<th style="text-align:right">Count</th>
+<th style="text-align:right">Share</th>
+<th>Pattern</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">1</td>
+<td style="text-align:right">2,606,352</td>
+<td style="text-align:right">3.40 %</td>
+<td><code>fmul fmul call(llvm.fmuladd.f32) fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>load fsub load load fsub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">3</td>
+<td style="text-align:right">2,359,296</td>
+<td style="text-align:right">3.08 %</td>
+<td><code>load load fsub load load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>ashr sub bitcast fmul fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">5</td>
+<td style="text-align:right">1,426,704</td>
+<td style="text-align:right">1.86 %</td>
+<td><code>bitcast ashr sub bitcast fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:right">1,303,176</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>bitcast fmul fmul call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">7</td>
+<td style="text-align:right">1,303,176</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul fmul call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:right">1,303,176</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) fmul fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">9</td>
+<td style="text-align:right">1,303,176</td>
+<td style="text-align:right">1.70 %</td>
+<td><code>sub bitcast fmul fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br ret call(simPutPixel) add icmp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">11</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>br sitofp fadd fdiv fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">12</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">13</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">14</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) load fneg call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">15</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fadd bitcast ashr sub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">16</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">17</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">18</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul fmul call(llvm.fmuladd.f32) fcmp</code></td>
+</tr>
+<tr>
+<td style="text-align:right">19</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) fmul fmul fdiv fdiv</code></td>
+</tr>
+<tr>
+<td style="text-align:right">20</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(llvm.fmuladd.f32) load fneg call(llvm.fmuladd.f32) fmul</code></td>
+</tr>
+<tr>
+<td style="text-align:right">21</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>call(trace) load load fsub load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">22</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd bitcast ashr sub bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">23</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fdiv fadd fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">24</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fadd fmul call(llvm.fmuladd.f32) fadd bitcast</code></td>
+</tr>
+<tr>
+<td style="text-align:right">25</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv call(trace) load load fsub</code></td>
+</tr>
+<tr>
+<td style="text-align:right">26</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fadd fmul call(llvm.fmuladd.f32) fadd</code></td>
+</tr>
+<tr>
+<td style="text-align:right">27</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fdiv call(trace) load load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">28</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fdiv fdiv fdiv call(trace) load</code></td>
+</tr>
+<tr>
+<td style="text-align:right">29</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul call(llvm.fmuladd.f32)</code></td>
+</tr>
+<tr>
+<td style="text-align:right">30</td>
+<td style="text-align:right">1,179,648</td>
+<td style="text-align:right">1.54 %</td>
+<td><code>fmul call(llvm.fmuladd.f32) call(llvm.fmuladd.f32) fmul fmul</code></td>
+</tr>
+</tbody>
+</table>
+
+            
+            
+        </body>
+        </html>

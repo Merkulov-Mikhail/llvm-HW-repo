@@ -3,15 +3,9 @@ source_filename = "raytracing.c"
 target datalayout = "e-m:e-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-linux-gnu"
 
-@BACKGROUND = dso_local constant i32 -16777216, align 4
-@AMBIENT = dso_local constant float 0x3FB99999A0000000, align 4
 @light_orbit_radius = dso_local global float 4.000000e+00, align 4
 @light_orbit_height = dso_local global float 2.000000e+00, align 4
 @frames_per_rotation = dso_local global i32 60, align 4
-@ROTATIONS = dso_local constant i32 100, align 4
-@WINDOW_WIDTH = dso_local constant float 2.000000e+00, align 4
-@WINDOW_HEIGHT = dso_local constant float 1.000000e+00, align 4
-@WINDOW_DISTANCE = dso_local constant float 1.000000e+00, align 4
 @sphere_color_r = dso_local global i32 0, align 4
 @sphere_color_g = dso_local global i32 240, align 4
 @sphere_color_b = dso_local global i32 0, align 4
@@ -44,12 +38,12 @@ define dso_local float @norm_factor(float noundef %0, float noundef %1, float no
   %13 = load float, ptr %6, align 4
   %14 = load float, ptr %6, align 4
   %15 = call float @llvm.fmuladd.f32(float %13, float %14, float %12)
-  %16 = call float @sqrt(float noundef %15)
+  %16 = call float @m_sqrt(float noundef %15)
   ret float %16
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable
-define internal float @sqrt(float noundef %0) #0 {
+define internal float @m_sqrt(float noundef %0) #0 {
   %2 = alloca float, align 4
   store float %0, ptr %2, align 4
   %3 = load float, ptr %2, align 4
@@ -63,7 +57,191 @@ define internal float @sqrt(float noundef %0) #0 {
 declare float @llvm.fmuladd.f32(float, float, float) #1
 
 ; Function Attrs: noinline nounwind optnone uwtable
-define dso_local i32 @shade(float noundef %0, float noundef %1, float noundef %2) #0 {
+define dso_local i32 @trace(float noundef %0, float noundef %1, float noundef %2) #0 {
+  %4 = alloca i32, align 4
+  %5 = alloca float, align 4
+  %6 = alloca float, align 4
+  %7 = alloca float, align 4
+  %8 = alloca float, align 4
+  %9 = alloca float, align 4
+  %10 = alloca float, align 4
+  %11 = alloca float, align 4
+  store float %0, ptr %5, align 4
+  store float %1, ptr %6, align 4
+  store float %2, ptr %7, align 4
+  %12 = load float, ptr %5, align 4
+  %13 = load float, ptr %6, align 4
+  %14 = load float, ptr %7, align 4
+  %15 = call float @intersect_sphere(float noundef %12, float noundef %13, float noundef %14)
+  store float %15, ptr %8, align 4
+  %16 = load float, ptr %8, align 4
+  %17 = fcmp oge float %16, 0x46293E5940000000
+  br i1 %17, label %18, label %19
+
+18:                                               ; preds = %3
+  store i32 -16777216, ptr %4, align 4
+  br label %36
+
+19:                                               ; preds = %3
+  %20 = load float, ptr @camera_x, align 4
+  %21 = load float, ptr %8, align 4
+  %22 = load float, ptr %5, align 4
+  %23 = call float @llvm.fmuladd.f32(float %21, float %22, float %20)
+  store float %23, ptr %9, align 4
+  %24 = load float, ptr @camera_y, align 4
+  %25 = load float, ptr %8, align 4
+  %26 = load float, ptr %6, align 4
+  %27 = call float @llvm.fmuladd.f32(float %25, float %26, float %24)
+  store float %27, ptr %10, align 4
+  %28 = load float, ptr @camera_z, align 4
+  %29 = load float, ptr %8, align 4
+  %30 = load float, ptr %7, align 4
+  %31 = call float @llvm.fmuladd.f32(float %29, float %30, float %28)
+  store float %31, ptr %11, align 4
+  %32 = load float, ptr %9, align 4
+  %33 = load float, ptr %10, align 4
+  %34 = load float, ptr %11, align 4
+  %35 = call i32 @shade(float noundef %32, float noundef %33, float noundef %34)
+  store i32 %35, ptr %4, align 4
+  br label %36
+
+36:                                               ; preds = %19, %18
+  %37 = load i32, ptr %4, align 4
+  ret i32 %37
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal float @intersect_sphere(float noundef %0, float noundef %1, float noundef %2) #0 {
+  %4 = alloca float, align 4
+  %5 = alloca float, align 4
+  %6 = alloca float, align 4
+  %7 = alloca float, align 4
+  %8 = alloca float, align 4
+  %9 = alloca float, align 4
+  %10 = alloca float, align 4
+  %11 = alloca float, align 4
+  %12 = alloca float, align 4
+  %13 = alloca float, align 4
+  %14 = alloca float, align 4
+  %15 = alloca float, align 4
+  %16 = alloca float, align 4
+  store float %0, ptr %5, align 4
+  store float %1, ptr %6, align 4
+  store float %2, ptr %7, align 4
+  %17 = load float, ptr @camera_x, align 4
+  %18 = load float, ptr @sphere_x, align 4
+  %19 = fsub float %17, %18
+  store float %19, ptr %8, align 4
+  %20 = load float, ptr @camera_y, align 4
+  %21 = load float, ptr @sphere_y, align 4
+  %22 = fsub float %20, %21
+  store float %22, ptr %9, align 4
+  %23 = load float, ptr @camera_z, align 4
+  %24 = load float, ptr @sphere_z, align 4
+  %25 = fsub float %23, %24
+  store float %25, ptr %10, align 4
+  %26 = load float, ptr %5, align 4
+  %27 = load float, ptr %5, align 4
+  %28 = load float, ptr %6, align 4
+  %29 = load float, ptr %6, align 4
+  %30 = fmul float %28, %29
+  %31 = call float @llvm.fmuladd.f32(float %26, float %27, float %30)
+  %32 = load float, ptr %7, align 4
+  %33 = load float, ptr %7, align 4
+  %34 = call float @llvm.fmuladd.f32(float %32, float %33, float %31)
+  store float %34, ptr %11, align 4
+  %35 = load float, ptr %8, align 4
+  %36 = load float, ptr %5, align 4
+  %37 = load float, ptr %9, align 4
+  %38 = load float, ptr %6, align 4
+  %39 = fmul float %37, %38
+  %40 = call float @llvm.fmuladd.f32(float %35, float %36, float %39)
+  %41 = load float, ptr %10, align 4
+  %42 = load float, ptr %7, align 4
+  %43 = call float @llvm.fmuladd.f32(float %41, float %42, float %40)
+  %44 = fmul float 2.000000e+00, %43
+  store float %44, ptr %12, align 4
+  %45 = load float, ptr %8, align 4
+  %46 = load float, ptr %8, align 4
+  %47 = load float, ptr %9, align 4
+  %48 = load float, ptr %9, align 4
+  %49 = fmul float %47, %48
+  %50 = call float @llvm.fmuladd.f32(float %45, float %46, float %49)
+  %51 = load float, ptr %10, align 4
+  %52 = load float, ptr %10, align 4
+  %53 = call float @llvm.fmuladd.f32(float %51, float %52, float %50)
+  %54 = load float, ptr @sphere_radius, align 4
+  %55 = load float, ptr @sphere_radius, align 4
+  %56 = fneg float %54
+  %57 = call float @llvm.fmuladd.f32(float %56, float %55, float %53)
+  store float %57, ptr %13, align 4
+  %58 = load float, ptr %12, align 4
+  %59 = load float, ptr %12, align 4
+  %60 = load float, ptr %11, align 4
+  %61 = fmul float 4.000000e+00, %60
+  %62 = load float, ptr %13, align 4
+  %63 = fmul float %61, %62
+  %64 = fneg float %63
+  %65 = call float @llvm.fmuladd.f32(float %58, float %59, float %64)
+  store float %65, ptr %14, align 4
+  %66 = load float, ptr %14, align 4
+  %67 = fcmp olt float %66, 0.000000e+00
+  br i1 %67, label %68, label %69
+
+68:                                               ; preds = %3
+  store float 0x46293E5940000000, ptr %4, align 4
+  br label %96
+
+69:                                               ; preds = %3
+  %70 = load float, ptr %14, align 4
+  %71 = call float @m_sqrt(float noundef %70)
+  store float %71, ptr %15, align 4
+  %72 = load float, ptr %12, align 4
+  %73 = fneg float %72
+  %74 = load float, ptr %15, align 4
+  %75 = fsub float %73, %74
+  %76 = load float, ptr %11, align 4
+  %77 = fmul float 2.000000e+00, %76
+  %78 = fdiv float %75, %77
+  store float %78, ptr %16, align 4
+  %79 = load float, ptr %16, align 4
+  %80 = fcmp ogt float %79, 0x3EB0C6F7A0000000
+  br i1 %80, label %81, label %83
+
+81:                                               ; preds = %69
+  %82 = load float, ptr %16, align 4
+  store float %82, ptr %4, align 4
+  br label %96
+
+83:                                               ; preds = %69
+  %84 = load float, ptr %12, align 4
+  %85 = fneg float %84
+  %86 = load float, ptr %15, align 4
+  %87 = fadd float %85, %86
+  %88 = load float, ptr %11, align 4
+  %89 = fmul float 2.000000e+00, %88
+  %90 = fdiv float %87, %89
+  store float %90, ptr %16, align 4
+  %91 = load float, ptr %16, align 4
+  %92 = fcmp ogt float %91, 0x3EB0C6F7A0000000
+  br i1 %92, label %93, label %95
+
+93:                                               ; preds = %83
+  %94 = load float, ptr %16, align 4
+  store float %94, ptr %4, align 4
+  br label %96
+
+95:                                               ; preds = %83
+  store float 0x46293E5940000000, ptr %4, align 4
+  br label %96
+
+96:                                               ; preds = %95, %93, %81, %68
+  %97 = load float, ptr %4, align 4
+  ret float %97
+}
+
+; Function Attrs: noinline nounwind optnone uwtable
+define internal i32 @shade(float noundef %0, float noundef %1, float noundef %2) #0 {
   %4 = alloca float, align 4
   %5 = alloca float, align 4
   %6 = alloca float, align 4
@@ -194,190 +372,6 @@ define dso_local i32 @shade(float noundef %0, float noundef %1, float noundef %2
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable
-define dso_local float @intersect_sphere(float noundef %0, float noundef %1, float noundef %2) #0 {
-  %4 = alloca float, align 4
-  %5 = alloca float, align 4
-  %6 = alloca float, align 4
-  %7 = alloca float, align 4
-  %8 = alloca float, align 4
-  %9 = alloca float, align 4
-  %10 = alloca float, align 4
-  %11 = alloca float, align 4
-  %12 = alloca float, align 4
-  %13 = alloca float, align 4
-  %14 = alloca float, align 4
-  %15 = alloca float, align 4
-  %16 = alloca float, align 4
-  store float %0, ptr %5, align 4
-  store float %1, ptr %6, align 4
-  store float %2, ptr %7, align 4
-  %17 = load float, ptr @camera_x, align 4
-  %18 = load float, ptr @sphere_x, align 4
-  %19 = fsub float %17, %18
-  store float %19, ptr %8, align 4
-  %20 = load float, ptr @camera_y, align 4
-  %21 = load float, ptr @sphere_y, align 4
-  %22 = fsub float %20, %21
-  store float %22, ptr %9, align 4
-  %23 = load float, ptr @camera_z, align 4
-  %24 = load float, ptr @sphere_z, align 4
-  %25 = fsub float %23, %24
-  store float %25, ptr %10, align 4
-  %26 = load float, ptr %5, align 4
-  %27 = load float, ptr %5, align 4
-  %28 = load float, ptr %6, align 4
-  %29 = load float, ptr %6, align 4
-  %30 = fmul float %28, %29
-  %31 = call float @llvm.fmuladd.f32(float %26, float %27, float %30)
-  %32 = load float, ptr %7, align 4
-  %33 = load float, ptr %7, align 4
-  %34 = call float @llvm.fmuladd.f32(float %32, float %33, float %31)
-  store float %34, ptr %11, align 4
-  %35 = load float, ptr %8, align 4
-  %36 = load float, ptr %5, align 4
-  %37 = load float, ptr %9, align 4
-  %38 = load float, ptr %6, align 4
-  %39 = fmul float %37, %38
-  %40 = call float @llvm.fmuladd.f32(float %35, float %36, float %39)
-  %41 = load float, ptr %10, align 4
-  %42 = load float, ptr %7, align 4
-  %43 = call float @llvm.fmuladd.f32(float %41, float %42, float %40)
-  %44 = fmul float 2.000000e+00, %43
-  store float %44, ptr %12, align 4
-  %45 = load float, ptr %8, align 4
-  %46 = load float, ptr %8, align 4
-  %47 = load float, ptr %9, align 4
-  %48 = load float, ptr %9, align 4
-  %49 = fmul float %47, %48
-  %50 = call float @llvm.fmuladd.f32(float %45, float %46, float %49)
-  %51 = load float, ptr %10, align 4
-  %52 = load float, ptr %10, align 4
-  %53 = call float @llvm.fmuladd.f32(float %51, float %52, float %50)
-  %54 = load float, ptr @sphere_radius, align 4
-  %55 = load float, ptr @sphere_radius, align 4
-  %56 = fneg float %54
-  %57 = call float @llvm.fmuladd.f32(float %56, float %55, float %53)
-  store float %57, ptr %13, align 4
-  %58 = load float, ptr %12, align 4
-  %59 = load float, ptr %12, align 4
-  %60 = load float, ptr %11, align 4
-  %61 = fmul float 4.000000e+00, %60
-  %62 = load float, ptr %13, align 4
-  %63 = fmul float %61, %62
-  %64 = fneg float %63
-  %65 = call float @llvm.fmuladd.f32(float %58, float %59, float %64)
-  store float %65, ptr %14, align 4
-  %66 = load float, ptr %14, align 4
-  %67 = fcmp olt float %66, 0.000000e+00
-  br i1 %67, label %68, label %69
-
-68:                                               ; preds = %3
-  store float 0x46293E5940000000, ptr %4, align 4
-  br label %96
-
-69:                                               ; preds = %3
-  %70 = load float, ptr %14, align 4
-  %71 = call float @sqrt(float noundef %70)
-  store float %71, ptr %15, align 4
-  %72 = load float, ptr %12, align 4
-  %73 = fneg float %72
-  %74 = load float, ptr %15, align 4
-  %75 = fsub float %73, %74
-  %76 = load float, ptr %11, align 4
-  %77 = fmul float 2.000000e+00, %76
-  %78 = fdiv float %75, %77
-  store float %78, ptr %16, align 4
-  %79 = load float, ptr %16, align 4
-  %80 = fcmp ogt float %79, 0x3EB0C6F7A0000000
-  br i1 %80, label %81, label %83
-
-81:                                               ; preds = %69
-  %82 = load float, ptr %16, align 4
-  store float %82, ptr %4, align 4
-  br label %96
-
-83:                                               ; preds = %69
-  %84 = load float, ptr %12, align 4
-  %85 = fneg float %84
-  %86 = load float, ptr %15, align 4
-  %87 = fadd float %85, %86
-  %88 = load float, ptr %11, align 4
-  %89 = fmul float 2.000000e+00, %88
-  %90 = fdiv float %87, %89
-  store float %90, ptr %16, align 4
-  %91 = load float, ptr %16, align 4
-  %92 = fcmp ogt float %91, 0x3EB0C6F7A0000000
-  br i1 %92, label %93, label %95
-
-93:                                               ; preds = %83
-  %94 = load float, ptr %16, align 4
-  store float %94, ptr %4, align 4
-  br label %96
-
-95:                                               ; preds = %83
-  store float 0x46293E5940000000, ptr %4, align 4
-  br label %96
-
-96:                                               ; preds = %95, %93, %81, %68
-  %97 = load float, ptr %4, align 4
-  ret float %97
-}
-
-; Function Attrs: noinline nounwind optnone uwtable
-define dso_local i32 @trace(float noundef %0, float noundef %1, float noundef %2) #0 {
-  %4 = alloca i32, align 4
-  %5 = alloca float, align 4
-  %6 = alloca float, align 4
-  %7 = alloca float, align 4
-  %8 = alloca float, align 4
-  %9 = alloca float, align 4
-  %10 = alloca float, align 4
-  %11 = alloca float, align 4
-  store float %0, ptr %5, align 4
-  store float %1, ptr %6, align 4
-  store float %2, ptr %7, align 4
-  %12 = load float, ptr %5, align 4
-  %13 = load float, ptr %6, align 4
-  %14 = load float, ptr %7, align 4
-  %15 = call float @intersect_sphere(float noundef %12, float noundef %13, float noundef %14)
-  store float %15, ptr %8, align 4
-  %16 = load float, ptr %8, align 4
-  %17 = fcmp oge float %16, 0x46293E5940000000
-  br i1 %17, label %18, label %19
-
-18:                                               ; preds = %3
-  store i32 -16777216, ptr %4, align 4
-  br label %36
-
-19:                                               ; preds = %3
-  %20 = load float, ptr @camera_x, align 4
-  %21 = load float, ptr %8, align 4
-  %22 = load float, ptr %5, align 4
-  %23 = call float @llvm.fmuladd.f32(float %21, float %22, float %20)
-  store float %23, ptr %9, align 4
-  %24 = load float, ptr @camera_y, align 4
-  %25 = load float, ptr %8, align 4
-  %26 = load float, ptr %6, align 4
-  %27 = call float @llvm.fmuladd.f32(float %25, float %26, float %24)
-  store float %27, ptr %10, align 4
-  %28 = load float, ptr @camera_z, align 4
-  %29 = load float, ptr %8, align 4
-  %30 = load float, ptr %7, align 4
-  %31 = call float @llvm.fmuladd.f32(float %29, float %30, float %28)
-  store float %31, ptr %11, align 4
-  %32 = load float, ptr %9, align 4
-  %33 = load float, ptr %10, align 4
-  %34 = load float, ptr %11, align 4
-  %35 = call i32 @shade(float noundef %32, float noundef %33, float noundef %34)
-  store i32 %35, ptr %4, align 4
-  br label %36
-
-36:                                               ; preds = %19, %18
-  %37 = load i32, ptr %4, align 4
-  ret i32 %37
-}
-
-; Function Attrs: noinline nounwind optnone uwtable
 define dso_local void @render() #0 {
   %1 = alloca float, align 4
   %2 = alloca float, align 4
@@ -482,20 +476,20 @@ define dso_local void @app() #0 {
   store i32 0, ptr %1, align 4
   br label %4
 
-4:                                                ; preds = %62, %0
+4:                                                ; preds = %56, %0
   %5 = load i32, ptr %1, align 4
   %6 = icmp slt i32 %5, 100
-  br i1 %6, label %7, label %65
+  br i1 %6, label %7, label %59
 
 7:                                                ; preds = %4
   store i32 0, ptr %2, align 4
   br label %8
 
-8:                                                ; preds = %48, %7
+8:                                                ; preds = %42, %7
   %9 = load i32, ptr %2, align 4
   %10 = load i32, ptr @frames_per_rotation, align 4
   %11 = icmp slt i32 %9, %10
-  br i1 %11, label %12, label %51
+  br i1 %11, label %12, label %45
 
 12:                                               ; preds = %8
   %13 = load i32, ptr %2, align 4
@@ -508,7 +502,7 @@ define dso_local void @app() #0 {
   %19 = load float, ptr @sphere_x, align 4
   %20 = load float, ptr @light_orbit_radius, align 4
   %21 = load float, ptr %3, align 4
-  %22 = call float @cos(float noundef %21)
+  %22 = call float @m_cos(float noundef %21)
   %23 = call float @llvm.fmuladd.f32(float %20, float %22, float %19)
   store float %23, ptr @light_x, align 4
   %24 = load float, ptr @sphere_y, align 4
@@ -518,7 +512,7 @@ define dso_local void @app() #0 {
   %27 = load float, ptr @sphere_z, align 4
   %28 = load float, ptr @light_orbit_radius, align 4
   %29 = load float, ptr %3, align 4
-  %30 = call float @sin(float noundef %29)
+  %30 = call float @m_sin(float noundef %29)
   %31 = call float @llvm.fmuladd.f32(float %28, float %30, float %27)
   store float %31, ptr @light_z, align 4
   call void @render()
@@ -529,62 +523,54 @@ define dso_local void @app() #0 {
   %34 = load i32, ptr @sphere_color_b, align 4
   %35 = srem i32 %34, 255
   store i32 %35, ptr @sphere_color_b, align 4
-  %36 = load float, ptr %3, align 4
-  %37 = call float @cos(float noundef %36)
-  %38 = fmul float 1.000000e+00, %37
-  store float %38, ptr @camera_x, align 4
-  %39 = load float, ptr %3, align 4
-  %40 = call float @sin(float noundef %39)
-  %41 = fmul float 1.000000e+00, %40
-  store float %41, ptr @camera_y, align 4
-  %42 = load i32, ptr %1, align 4
-  %43 = sitofp i32 %42 to float
-  %44 = load float, ptr %3, align 4
-  %45 = fmul float %43, %44
-  %46 = call float @sin(float noundef %45)
-  %47 = fadd float 4.000000e+00, %46
-  store float %47, ptr @light_orbit_radius, align 4
-  br label %48
+  %36 = load i32, ptr %1, align 4
+  %37 = sitofp i32 %36 to float
+  %38 = load float, ptr %3, align 4
+  %39 = fmul float %37, %38
+  %40 = call float @m_sin(float noundef %39)
+  %41 = fadd float 4.000000e+00, %40
+  store float %41, ptr @light_orbit_radius, align 4
+  br label %42
 
-48:                                               ; preds = %12
-  %49 = load i32, ptr %2, align 4
-  %50 = add nsw i32 %49, 1
-  store i32 %50, ptr %2, align 4
+42:                                               ; preds = %12
+  %43 = load i32, ptr %2, align 4
+  %44 = add nsw i32 %43, 1
+  store i32 %44, ptr %2, align 4
   br label %8, !llvm.loop !9
 
-51:                                               ; preds = %8
-  %52 = load i32, ptr %1, align 4
-  %53 = srem i32 %52, 2
-  %54 = icmp ne i32 %53, 0
-  br i1 %54, label %55, label %58
+45:                                               ; preds = %8
+  %46 = load i32, ptr %1, align 4
+  %47 = srem i32 %46, 2
+  %48 = icmp ne i32 %47, 0
+  br i1 %48, label %49, label %52
 
-55:                                               ; preds = %51
-  %56 = load i32, ptr @frames_per_rotation, align 4
-  %57 = sdiv i32 %56, 2
-  store i32 %57, ptr @frames_per_rotation, align 4
-  br label %61
+49:                                               ; preds = %45
+  %50 = load i32, ptr @frames_per_rotation, align 4
+  %51 = sdiv i32 %50, 2
+  store i32 %51, ptr @frames_per_rotation, align 4
+  br label %55
 
-58:                                               ; preds = %51
-  %59 = load i32, ptr @frames_per_rotation, align 4
-  %60 = mul nsw i32 %59, 2
-  store i32 %60, ptr @frames_per_rotation, align 4
-  br label %61
+52:                                               ; preds = %45
+  %53 = load i32, ptr @frames_per_rotation, align 4
+  %54 = mul nsw i32 %53, 2
+  store i32 %54, ptr @frames_per_rotation, align 4
+  br label %55
 
-61:                                               ; preds = %58, %55
-  br label %62
+55:                                               ; preds = %52, %49
+  br label %56
 
-62:                                               ; preds = %61
-  %63 = load i32, ptr %1, align 4
-  %64 = add nsw i32 %63, 1
-  store i32 %64, ptr %1, align 4
+56:                                               ; preds = %55
+  %57 = load i32, ptr %1, align 4
+  %58 = add nsw i32 %57, 1
+  store i32 %58, ptr %1, align 4
   br label %4, !llvm.loop !10
 
-65:                                               ; preds = %4
+59:                                               ; preds = %4
   ret void
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable
-define internal float @cos(float noundef %0) #0 {
+define internal float @m_cos(float noundef %0) #0 {
   %2 = alloca float, align 4
   store float %0, ptr %2, align 4
   %3 = load float, ptr %2, align 4
@@ -593,12 +579,12 @@ define internal float @cos(float noundef %0) #0 {
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable
-define internal float @sin(float noundef %0) #0 {
+define internal float @m_sin(float noundef %0) #0 {
   %2 = alloca float, align 4
   store float %0, ptr %2, align 4
   %3 = load float, ptr %2, align 4
   %4 = fsub float %3, 0x3FF921FB60000000
-  %5 = call float @cos(float noundef %4)
+  %5 = call float @m_cos(float noundef %4)
   ret float %5
 }
 
@@ -698,7 +684,7 @@ define internal float @cos_taylor(float noundef %0) #0 {
   %12 = fsub float %11, 0x400921FB60000000
   store float %12, ptr %3, align 4
   %13 = load float, ptr %3, align 4
-  %14 = call float @abs(float noundef %13)
+  %14 = call float @m_abs(float noundef %13)
   store float %14, ptr %3, align 4
   store float 1.000000e+00, ptr %4, align 4
   %15 = load float, ptr %3, align 4
@@ -808,10 +794,10 @@ define internal float @float_mod(float noundef %0, float noundef %1) #0 {
 
 28:                                               ; preds = %23
   %29 = load float, ptr %4, align 4
-  %30 = call float @abs(float noundef %29)
+  %30 = call float @m_abs(float noundef %29)
   store float %30, ptr %6, align 4
   %31 = load float, ptr %5, align 4
-  %32 = call float @abs(float noundef %31)
+  %32 = call float @m_abs(float noundef %31)
   store float %32, ptr %7, align 4
   %33 = load float, ptr %6, align 4
   %34 = load float, ptr %7, align 4
@@ -874,7 +860,7 @@ define internal float @float_mod(float noundef %0, float noundef %1) #0 {
 }
 
 ; Function Attrs: noinline nounwind optnone uwtable
-define internal float @abs(float noundef %0) #0 {
+define internal float @m_abs(float noundef %0) #0 {
   %2 = alloca float, align 4
   store float %0, ptr %2, align 4
   %3 = load float, ptr %2, align 4
@@ -945,7 +931,7 @@ define internal float @floor_impl(float noundef %0) #0 {
 
 13:                                               ; preds = %1
   %14 = load float, ptr %3, align 4
-  %15 = call float @abs(float noundef %14)
+  %15 = call float @m_abs(float noundef %14)
   %16 = fcmp oge float %15, 0x4160000000000000
   br i1 %16, label %17, label %19
 
@@ -956,7 +942,7 @@ define internal float @floor_impl(float noundef %0) #0 {
 
 19:                                               ; preds = %13
   %20 = load float, ptr %3, align 4
-  %21 = call float @abs(float noundef %20)
+  %21 = call float @m_abs(float noundef %20)
   %22 = fcmp olt float %21, 1.000000e+00
   br i1 %22, label %23, label %29
 
